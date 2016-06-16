@@ -23,8 +23,24 @@ public class Movie {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
 
-    public String getOverview() {
-        return overview;
+    public String getOverview(String typ) {
+        int fullLen = overview.length();
+        int len;
+        if (typ.equals("port")) {
+            len = 200;
+        }
+        else if (typ.equals("land")){
+            len = 400;
+        }
+        else {
+            len = fullLen;
+        }
+        if (fullLen > len) {
+            return overview.substring(0, Math.min(overview.length(), len)) + "...";
+        }
+        else {
+            return overview.substring(0, Math.min(overview.length(), len));
+        }
     }
 
     public String getBackdropPath() {
@@ -55,4 +71,5 @@ public class Movie {
         }
         return results;
     }
+
 }

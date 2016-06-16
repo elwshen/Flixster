@@ -1,10 +1,13 @@
 package com.example.eshen.flixster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -36,6 +39,7 @@ public class MoviesActivity extends AppCompatActivity {
 
         lvMovies = (ListView) findViewById(R.id.lvMovies);
 
+
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
         swipeContainer.setOnRefreshListener(new OnRefreshListener(){
@@ -54,6 +58,14 @@ public class MoviesActivity extends AppCompatActivity {
 
         if (lvMovies != null) {
             lvMovies.setAdapter(adapter);
+            lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+                    Movie movie = movies.get(position);
+                    launchEditView(movie.getBackdropPath(), movie.getOriginalTitle(), movie.getOverview(""));
+                }
+            });
         }
 
         fetchMovies();
@@ -78,11 +90,18 @@ public class MoviesActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
+    }
+
+    public void launchEditView(String backdropPath, String title, String summary) {
+        Intent i = new Intent(MoviesActivity.this, SingleMovieActivity.class);
+        i.putExtra("backdropPath", backdropPath);
+        i.putExtra("title", title);
+        i.putExtra("summary", summary);
+        startActivity(i);
     }
 }
