@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/tvTitle"
-        android:textSize="26sp"
+        android:textSize="20sp"
         android:textColor="#FFFFFF"
         android:padding="10dp"
         android:layout_alignParentTop="true"
