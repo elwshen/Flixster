@@ -13,6 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 
 /**
  * Created by eshen on 6/15/16.
@@ -29,7 +31,6 @@ public class MoviesAdapter extends ArrayAdapter<Movie>{
         TextView tvTitle;
         ImageView ivImage;
         TextView tvSummary;
-        TextView tvRating;
     }
 
     @Override
@@ -48,7 +49,6 @@ public class MoviesAdapter extends ArrayAdapter<Movie>{
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             viewHolder.ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
             viewHolder.tvSummary = (TextView) convertView.findViewById(R.id.tvSummary);
-            viewHolder.tvRating = (TextView) convertView.findViewById(R.id.tvRating);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -57,7 +57,6 @@ public class MoviesAdapter extends ArrayAdapter<Movie>{
         // Populate the data into the template view using the data object
         viewHolder.ivImage.setImageResource(0);
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
-        viewHolder.tvRating.setText(Double.toString(movie.getRating()));
 
         Log.d("MoviesAdapter", "Position: " + position);
         String imageURI;
@@ -78,6 +77,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie>{
         }
         Picasso.with(getContext()).load(imageURI).resize(width,height)
                 .placeholder(R.drawable.clapboard)
+                .transform(new RoundedCornersTransformation(20, 20))
                 .into(viewHolder.ivImage);
         viewHolder.tvSummary.setText(movie.getOverview(typ));
         // Return the completed view to render on screen

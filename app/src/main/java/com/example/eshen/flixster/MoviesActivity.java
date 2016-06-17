@@ -63,7 +63,8 @@ public class MoviesActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position,
                                         long id) {
                     Movie movie = movies.get(position);
-                    launchEditView(movie.getBackdropPath(), movie.getOriginalTitle(), movie.getOverview(""));
+                    launchEditView(movie.getBackdropPath(), movie.getOriginalTitle(),
+                            movie.getOverview(""), movie.getRating());
                 }
             });
         }
@@ -97,11 +98,12 @@ public class MoviesActivity extends AppCompatActivity {
         });
     }
 
-    public void launchEditView(String backdropPath, String title, String summary) {
+    public void launchEditView(String backdropPath, String title, String summary, double rating) {
         Intent i = new Intent(MoviesActivity.this, SingleMovieActivity.class);
         i.putExtra("backdropPath", backdropPath);
         i.putExtra("title", title);
         i.putExtra("summary", summary);
+        i.putExtra("rating", rating);
         startActivity(i);
     }
 }
