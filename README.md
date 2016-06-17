@@ -44,7 +44,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+The placeholder for loading images looks a little off because it's a different size from the loaded images.  When I researched solutions, it looked like other developers using Picasso had run into the same issue and it would be complicated to fix, so I opted to leave it alone for now.
 
 ## Open-source libraries used
 
